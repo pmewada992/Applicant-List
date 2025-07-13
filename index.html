@@ -272,15 +272,17 @@
 
 <!-- JS Logic -->
 <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwGwFh8MWuYPROP1SBzOPreQzSu8r50ViB8stBdjgdChjDzVZeoJ8LzyKPY_Cp7WLFlig/exec";
+  const scriptURL = "https://script.google.com/macros/s/YOUR_EXEC_URL_HERE/exec";
   const form = document.forms["submit-to-google-sheet"];
-  const fileInput = document.getElementById("resume-upload");
-  const fileNameDisplay = document.getElementById("file-name");
+  const fileInput = document.getElementById('resume-upload');
+  const fileNameDisplay = document.getElementById('file-name');
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     const formData = new FormData(form);
 
+    // Convert file to base64 and append manually
     const file = fileInput.files[0];
     if (file) {
       const base64 = await toBase64(file);
@@ -293,19 +295,19 @@
       method: "POST",
       body: formData
     })
-      .then((res) => {
-        if (res.ok) {
-          alert("✅ Submitted Successfully!");
-          form.reset();
-          fileNameDisplay.textContent = "";
-        } else {
-          alert("❌ Submission failed. Try again.");
-        }
-      })
-      .catch((err) => {
-        console.error("Network or JS error:", err);
-        alert("❌ Something went wrong.");
-      });
+    .then((res) => {
+      if (res.ok) {
+        alert("✅ Submitted Successfully!");
+        form.reset();
+        fileNameDisplay.textContent = "";
+      } else {
+        alert("❌ Failed to submit. Try again.");
+      }
+    })
+    .catch((err) => {
+      console.error("Network or JS error:", err);
+      alert("❌ Something went wrong.");
+    });
   });
 
   const toBase64 = (file) =>
