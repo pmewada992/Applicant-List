@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Application Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 40px;
+      color: #333;
+    }
+
+    form {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #3a7dcc;
+      font-size: 35px;
+      margin: 40px 0 15px;
+      font-weight: bold;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      font-size: 15px;
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+
+    textarea {
+      border-radius: 30px;
+      resize: vertical;
+    }
+
+    button {
+      padding: 12px 30px;
+      border-radius: 25px;
+      background-color: #3a7dcc;
+      color: #fff;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+
+    button:hover {
+      background-color: #000;
+    }
+
+    /* File Upload UI */
+    input[type="file"] {
+      display: none;
+    }
+
+    .custom-file-upload {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      background-color: #f8f8f8;
+      cursor: pointer;
+      color: #3a7dcc;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      margin-top: 10px;
+    }
+
+    .custom-file-upload:hover {
+      background-color: #e8f0ff;
+    }
+
+    #file-name {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .wide-select {
+      width: 100%;
+      min-width: 350px;
+    }
+  </style>
+</head>
+<body>
+
+<form name="submit-to-google-sheet">
+  <h1>Personal Details</h1>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" name="fullname" required>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" name="dob" required>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="tel" name="phone" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" name="email" required>
+    </div>
+  </div>
+
+  <h1>Address Details</h1>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="address1">Address Line 1</label>
+      <input type="text" name="address1" required>
+    </div>
+    <div class="form-group">
+      <label for="address2">Address Line 2</label>
+      <input type="text" name="address2">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="state">State</label>
+      <input type="text" name="state" required>
+    </div>
+    <div class="form-group">
+      <label for="pincode">Pincode</label>
+      <input type="text" name="pincode" required>
+    </div>
+  </div>
+
+  <h1>Resume</h1>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="resume-upload" class="custom-file-upload">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" fill="none" width="20" stroke="#3a7dcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="17 8 12 3 7 8" />
+          <line x1="12" y1="3" x2="12" y2="15" />
+        </svg>
+        <span>Attach Resume</span>
+      </label>
+      <input type="file" id="resume-upload" accept=".pdf,.doc,.docx">
+      <div id="file-name"></div>
+    </div>
+  </div>
+
+  <h1>Job Questions</h1>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="jobtitle">Job Title</label>
+      <input type="text" name="jobtitle">
+    </div>
+    <div class="form-group">
+      <label for="experience">Experience (in years)</label>
+      <input type="number" name="experience" min="0">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="industry">Specific Target Industry</label>
+    <input type="text" name="industry">
+  </div>
+  <div class="form-group">
+    <label for="skills">Skills</label>
+    <textarea name="skills" rows="3"></textarea>
+  </div>
+
+  <h1>Duration</h1>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="school1">School Name</label>
+      <input type="text" name="school1">
+    </div>
+    <div class="form-group">
+      <label for="major1">Major</label>
+      <input type="text" name="major1">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="startdate1">Start Date</label>
+      <input type="date" name="startdate1">
+    </div>
+    <div class="form-group">
+      <label for="enddate1">End Date</label>
+      <input type="date" name="enddate1">
+    </div>
+  </div>
+
+  <h1>Diversity Questions</h1>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select name="gender">
+        <option value="">Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="race">Race</label>
+      <select name="race" class="wide-select">
+        <option value="">Select</option>
+        <option value="South Asian">South Asian</option>
+        <option value="East Asian">East Asian</option>
+        <option value="Black / Of African Descent">Black / Of African Descent</option>
+        <option value="Hispanic / Latin">Hispanic / Latin</option>
+        <option value="White">White</option>
+        <option value="Alaskan Native / Native American">Alaskan Native / Native American</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="veteran">Veteran Status</label>
+      <select name="veteran">
+        <option value="">Select</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="disability">Disability Status</label>
+      <select name="disability">
+        <option value="">Select</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
+    </div>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
+<!-- JS Logic -->
+<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxyh079DbgTxMjbVu1AUFZFSnj8yeVFpVGTItG2-QptDf_y32YhKeAmqogNixmnlEQL8w/exec";
+  const form = document.forms["submit-to-google-sheet"];
+  const fileInput = document.getElementById("resume-upload");
+  const fileNameDisplay = document.getElementById("file-name");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const plainData = {};
+
+    for (const [key, value] of formData.entries()) {
+      plainData[key] = value;
+    }
+
+    const file = fileInput.files[0];
+    if (file) {
+      plainData["filename"] = file.name;
+      plainData["media"] = await toBase64(file);
+      plainData["media"] = plainData["media"].split(",")[1]; // remove data:...base64,
+    }
+
+    fetch(scriptURL, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(plainData)
+})
+  .then(async res => {
+    const text = await res.text();
+    console.log("HTTP status:", res.status, text);
+    if (res.ok) {
+      alert("✅ Submitted successfully!");
+    } else {
+      alert(`❌ Server error: ${res.status}`);
+    }
+  })
+  .catch(err => {
+    console.error("Network or JS error:", err);
+    alert(`❌ Something went wrong (check console)`);
+  });
+  });
+
+  const toBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+  });
+
+  fileInput.addEventListener("change", () => {
+    fileNameDisplay.textContent = fileInput.files[0]?.name || "";
+  });
+</script>
+
+</body>
+</html>
