@@ -279,52 +279,46 @@
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const formData = new FormData(form);
-    const plainData = {};
-
-    for (const [key, value] of formData.entries()) {
-      plainData[key] = value;
-    }
 
     const file = fileInput.files[0];
     if (file) {
-      plainData["filename"] = file.name;
-      plainData["media"] = await toBase64(file);
-      plainData["media"] = plainData["media"].split(",")[1]; // remove data:...base64,
+      const base64 = await toBase64(file);
+      formData.append("media", base64.replace(/^data:.+;base64,/, ""));
+    } else {
+      formData.append("media", "");
     }
 
     fetch(scriptURL, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(plainData)
-})
-  .then(async res => {
-    const text = await res.text();
-    console.log("HTTP status:", res.status, text);
-    if (res.ok) {
-      alert("✅ Submitted successfully!");
-    } else {
-      alert(`❌ Server error: ${res.status}`);
-    }
-  })
-  .catch(err => {
-    console.error("Network or JS error:", err);
-    alert(`❌ Something went wrong (check console)`);
-  });
+      method: "POST",
+      body: formData
+    })
+      .then((res) => {
+        if (res.ok) {
+          alert("✅ Submitted Successfully!");
+          form.reset();
+          fileNameDisplay.textContent = "";
+        } else {
+          alert("❌ Submission failed. Try again.");
+        }
+      })
+      .catch((err) => {
+        console.error("Network or JS error:", err);
+        alert("❌ Something went wrong.");
+      });
   });
 
-  const toBase64 = (file) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-  });
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+    });
 
   fileInput.addEventListener("change", () => {
     fileNameDisplay.textContent = fileInput.files[0]?.name || "";
   });
 </script>
-
 </body>
 </html>
